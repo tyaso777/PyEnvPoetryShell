@@ -23,18 +23,19 @@ Please ensure these extensions are installed in your VSCode environment to take 
 
 ## Basic Usage
 
-To initialize a new project, simply run the `Execute-PsScript.bat` file. Upon execution, a popup will appear, from which you should select `Initialize-PoetryProject.ps1`. This will perform the necessary steps to initialize your project.
+1. Initialize a New Project:
+   - Run 'Execute-PsScript.bat'.
+   - Select 'Initialize-PoetryProject.ps1' from the popup.
+   - This script initializes your project.
+
+2. Enhanced Poetry Command Support:
+   - Execute various poetry commands via 'Prepare-PoetryCommands.ps1'.
+   - Run this script by selecting it after running 'Execute-PsScript.bat'.
+   - Provides flexibility and control over Poetry-managed Python projects.
 
 ## Upcoming Features
 
-There are several additional features planned for future updates:
+1. Poetry Environment Setup:
+   - Upcoming feature to setup environment using 'poetry install'.
+   - Streamlines configuring dependencies and settings for existing projects.
 
-1. **Poetry Environment Setup**:
-   The ability to set up an existing project environment using `poetry install`. This feature will streamline the process of configuring the necessary dependencies and settings for existing projects.
-
-2. **Enhanced Poetry Command Support**:
-   Support for executing various poetry commands in the context of existing projects. This will provide users with more flexibility and control over their Poetry-managed Python projects.
-
-## Note on Proxy Settings
-
-Please note that while the current version does not include configurations for working behind a proxy, this is a high-priority update and will be implemented shortly. Stay tuned for these improvements, aimed at enhancing usability for users in restricted network environments.
