@@ -3,21 +3,18 @@
 . "$PSScriptRoot\.scripts\Select-AndSetupPythonVersion.ps1"
 . "$PSScriptRoot\.scripts\Create-VSCodeWorkspace.ps1"
 . "$PSScriptRoot\.scripts\Show-MessageBox.ps1"
+. "$PSScriptRoot\.scripts\Set-AuthenticationProxyIfRequired.ps1"
 
 # Main logic
 
-{
-    $message = "Please select a new Project Folder in the upcoming dialog."
-    $title = "Select Folder"
-    Show-MessageBox -Message $message -Title $title
-}
-
-Show-MessageBox -Message "Please select a new Project Folder in the upcoming dialog." -Title "Select Folder"
+Show-MessageBox `
+    -Message "Please select a new Project Folder in the upcoming dialog." `
+    -Title "Select Folder"
 
 $selectedFolderPath = Select-Folder -Message "Select Folder" 
 if ($selectedFolderPath -eq $null) {
     Write-Host Write-Host "Folder selection was cancelled. The process will be terminated."
-    return
+    exit
 }
 
 $selectedFolderName = (Split-Path $selectedFolderPath -Leaf)
@@ -26,6 +23,10 @@ $selectedFolderName = (Split-Path $selectedFolderPath -Leaf)
 Write-Host "Selected folder: $selectedFolderPath"
 
 # Set up Proxy, etc.
+if (-not (Set-AuthenticationProxyIfRequired)) {
+    Write-Host "Failed to set up the proxy."
+    exit
+}
 
 # PowerShell defaults to UTF-16 encoding, while Poetry expects UTF-8.
 # To prevent encoding issues, explicitly set UTF-8 encoding before running Poetry commands.
@@ -56,9 +57,11 @@ $poetryEnvPath = poetry env info -p
 Create-VSCodeWorkspace -folderPath $selectedFolderPath -pythonPath $poetryEnvPath
 
 # Show a message box to the user instructing them to manually set the Python interpreter in VSCode
-$message = "Please set the Python interpreter in vscode using path written in the log."
-$title = "Set Python Interpreter"
-Show-MessageBox -Message $message -Title $title
+# $message = "Please set the Python interpreter in vscode using path written in the log."
+# $title = "Set Python Interpreter"
+Show-MessageBox `
+    -Message "Please set the Python interpreter in vscode using path written in the log." `
+    -Title "Set Python Interpreter"
 
 # Output the Python interpreter path to the console for the user's reference
 Write-Host ("the Python interpreter to the path: " + ($poetryEnvPath + "\Scripts"))
