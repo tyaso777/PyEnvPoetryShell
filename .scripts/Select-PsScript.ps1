@@ -1,30 +1,28 @@
-﻿# 必要なアセンブリを読み込む
+﻿# Load the necessary assembly
 Add-Type -AssemblyName System.Windows.Forms
 
-# スクリプト自身のディレクトリを取得
+# Get the script's directory
 $scriptPath = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
 
-# 更にその親ディレクトリを取得
+# Get the parent directory of the script
 $parentDirectory = Split-Path -Parent -Path $scriptPath
 
-# OpenFileDialogのインスタンスを作成
+# Create an instance of OpenFileDialog
 $openFileDialog = New-Object System.Windows.Forms.OpenFileDialog
 
-# ファイルの種類をフィルター
+# Filter file types
 $openFileDialog.Filter = "PowerShell Scripts (*.ps1)|*.ps1"
 
-# スクリプトの格納ディレクトリの親ディレクトリを初期ディレクトリとして設定
+# Set the initial directory to the parent directory of the script's storage
 $openFileDialog.InitialDirectory = $parentDirectory
 
-# ダイアログを表示
+# Display the dialog
 $result = $openFileDialog.ShowDialog()
 
-# ユーザーが「OK」を選択した場合、選択したファイルのパスを出力
-if ($result -eq [System.Windows.Forms.DialogResult]::OK)
-{
-    $openFileDialog.FileName
+# If the user selects "OK," output the selected file path
+if ($result -eq [System.Windows.Forms.DialogResult]::OK) {
+    return $openFileDialog.FileName
 }
-else
-{
-    # ユーザーがキャンセルした場合、何も出力しない
+else {
+    return $null # If the user cancels, output nothing
 }
