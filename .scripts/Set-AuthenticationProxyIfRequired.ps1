@@ -6,7 +6,7 @@ function Set-AuthenticationProxyIfRequired {
 
     # If a proxy address exists, set up the authentication details
     if ($proxyAddress) {
-        try{
+        try {
             # Prompt the user to enter proxy username and password
             $proxyUser = Read-Host -Prompt "Enter your proxy username"
             $password = Read-Host -Prompt "Enter your proxy password" -AsSecureString
@@ -33,7 +33,7 @@ function Set-AuthenticationProxyIfRequired {
             Write-Host "Proxy settings have been applied."
             return $true
         }
-        catch{
+        catch {
             Write-Host "Error occurred while setting up the proxy: $_"
             return $false
         }
