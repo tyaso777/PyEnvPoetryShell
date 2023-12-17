@@ -1,5 +1,5 @@
 # PyEnvPoetryShell
-Tailored for developers in authenticated proxy environments, this tool optimizes Python project setup and dependency handling using pyenv and poetry, complete with VSCode settings for a seamless development process.
+Tailored for developers in authenticated proxy environments, especially those in Japan using Windows PCs, this tool optimizes Python project setup and dependency handling using pyenv and poetry, complete with VSCode settings for a seamless development process.
 
 ## Required Extensions for Visual Studio Code
 
