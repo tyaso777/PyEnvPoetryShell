@@ -27,6 +27,7 @@ if (-Not (Test-Path -Path $pyProjectPath)) {
 
 # Continue with the main logic from here
 Write-Host "Selected folder: $selectedFolderPath"
+cd $selectedFolderPath
 
 # Set up Proxy, etc.
 if (-not (Set-AuthenticationProxyIfRequired)) {
