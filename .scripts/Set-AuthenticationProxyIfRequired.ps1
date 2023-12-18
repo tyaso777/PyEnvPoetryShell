@@ -1,8 +1,9 @@
 function Set-AuthenticationProxyIfRequired {
     # Check the current system proxy settings
     $proxyInfo = netsh winhttp show proxy
-    $matchResult = $proxyInfo -match 'Proxy Server\(s\) : +(?<proxyAddress>\S+)'
-    $proxyAddress = ($matchResult -join "" -replace 'Proxy Server\(s\) : +', '').Trim()
+    $regexPattern = 'Proxy Server\(s\) : +|プロキシ サーバー: +'
+    $matchResult = $proxyInfo -match $regexPattern
+    $proxyAddress = ($matchResult -join "" -replace $regexPattern, '').Trim()
 
     # If a proxy address exists, set up the authentication details
     if ($proxyAddress) {
