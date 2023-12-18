@@ -2,7 +2,7 @@ function Set-AuthenticationProxyIfRequired {
     # Check the current system proxy settings
     $proxyInfo = netsh winhttp show proxy
     $matchResult = $proxyInfo -match 'Proxy Server\(s\) : +(?<proxyAddress>\S+)'
-    $proxyAddress = ($matchResult -replace 'Proxy Server\(s\) : +', '').Trim()
+    $proxyAddress = ($matchResult -join "" -replace 'Proxy Server\(s\) : +', '').Trim()
 
     # If a proxy address exists, set up the authentication details
     if ($proxyAddress) {
@@ -10,7 +10,7 @@ function Set-AuthenticationProxyIfRequired {
             # Prompt the user to enter proxy username and password
             $proxyUser = Read-Host -Prompt "Enter your proxy username"
             $password = Read-Host -Prompt "Enter your proxy password" -AsSecureString
-            $BSTR = [System.Runtime.InteropServices]
+            $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($password)
             $proxyPassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
 
             # Construct the proxy address with authentication information
