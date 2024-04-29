@@ -12,7 +12,7 @@ Show-MessageBox `
     -Title "Select Folder"
 
 $selectedFolderPath = Select-Folder -Message "Select Folder" 
-if ($selectedFolderPath -eq $null) {
+if ($null -eq $selectedFolderPath) {
     Write-Host Write-Host "Folder selection was cancelled. The process will be terminated."
     exit
 }
@@ -33,7 +33,7 @@ if (-not (Set-AuthenticationProxyIfRequired)) {
 $env:PYTHONUTF8=1
 
 # Move to the project folder
-cd $selectedFolderPath
+Set-Location $selectedFolderPath
 
 # Configure pyenv
 if (-not (Select-AndSetUpPythonVersion)) {
