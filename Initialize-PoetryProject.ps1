@@ -44,6 +44,17 @@ if (-not (Select-AndSetUpPythonVersion)) {
 # Initialize a new poetry project without interaction to create pyproject.toml
 poetry init --no-interaction
 
+# Read the selected Python version from .python-version file
+$pythonVersion = Get-Content -Path ".python-version"
+$pythonMajorMinor = $pythonVersion -replace '(\d+\.\d+)\.\d+', '$1'
+$pythonVersionSpecifier = "^$pythonMajorMinor"
+
+# Update pyproject.toml with the correct Python version dependency
+(Get-Content -Path "pyproject.toml") -replace '(?<=python = ").*?(?=")', $pythonVersionSpecifier | Set-Content -Path "pyproject.toml"
+
+# Use the specific Python version for the Poetry environment
+poetry env use $pythonVersion
+
 # Create the main project folder
 $projectFolderPath = Join-Path -Path . -ChildPath $selectedFolderName
 New-Item -Path $projectFolderPath -ItemType "directory"
