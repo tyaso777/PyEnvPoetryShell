@@ -60,12 +60,8 @@ New-Item -Path $mainScriptPath -ItemType "file"
 $testsFolderPath = Join-Path -Path . -ChildPath "tests"
 New-Item -Path $testsFolderPath -ItemType "directory"
 
-# Create a subfolder within the tests folder corresponding to the project
-$testProjectFolderPath = Join-Path -Path $testsFolderPath -ChildPath $selectedFolderName
-New-Item -Path $testProjectFolderPath -ItemType "directory"
-
 # Create an __init__.py file in the tests subfolder
-$testInitFilePath = Join-Path -Path $testProjectFolderPath -ChildPath "__init__.py"
+$testInitFilePath = Join-Path -Path $testsFolderPath -ChildPath "__init__.py"
 New-Item -Path $testInitFilePath -ItemType "file"
 
 # Add basic packages with Poetry
