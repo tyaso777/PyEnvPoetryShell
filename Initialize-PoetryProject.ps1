@@ -41,11 +41,32 @@ if (-not (Select-AndSetUpPythonVersion)) {
     exit
 }
 
-# Setting up poetry
-poetry new $selectedFolderName
+# Initialize a new poetry project without interaction to create pyproject.toml
+poetry init --no-interaction
 
-# Move into the poetry folder
-cd $selectedFolderName
+# Create the main project folder
+$projectFolderPath = Join-Path -Path . -ChildPath $selectedFolderName
+New-Item -Path $projectFolderPath -ItemType "directory"
+
+# Create the __init__.py file in the project folder
+$initFilePath = Join-Path -Path $projectFolderPath -ChildPath "__init__.py"
+New-Item -Path $initFilePath -ItemType "file"
+
+# Create the main script file in the project folder
+$mainScriptPath = Join-Path -Path $projectFolderPath -ChildPath "${selectedFolderName}.py"
+New-Item -Path $mainScriptPath -ItemType "file"
+
+# Create the tests folder at the project root
+$testsFolderPath = Join-Path -Path . -ChildPath "tests"
+New-Item -Path $testsFolderPath -ItemType "directory"
+
+# Create a subfolder within the tests folder corresponding to the project
+$testProjectFolderPath = Join-Path -Path $testsFolderPath -ChildPath $selectedFolderName
+New-Item -Path $testProjectFolderPath -ItemType "directory"
+
+# Create an __init__.py file in the tests subfolder
+$testInitFilePath = Join-Path -Path $testProjectFolderPath -ChildPath "__init__.py"
+New-Item -Path $testInitFilePath -ItemType "file"
 
 # Add basic packages with Poetry
 poetry add notebook ipykernel black flake8 mypy isort --group dev
@@ -64,5 +85,5 @@ Show-MessageBox `
     -Title "Set Python Interpreter"
 
 # Output the Python interpreter path to the console for the user's reference
-Write-Host ("the Python interpreter to the path: " + ($poetryEnvPath + "\Scripts"))
-
+Write-Host ("ctrl+shift+p in vscode => enter 'Python Select Interpreter' => Enter the path")
+Write-Host ("the Python interpreter to the path: `n" + ($poetryEnvPath + "\Scripts\python.exe"))
