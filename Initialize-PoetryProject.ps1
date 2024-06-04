@@ -55,6 +55,9 @@ $pythonVersionSpecifier = "^$pythonMajorMinor"
 # Use the specific Python version for the Poetry environment
 poetry env use $pythonVersion
 
+# Create README.md
+New-Item -Path . -Name "README.md" -ItemType "file"
+
 # Create the main project folder
 $projectFolderPath = Join-Path -Path . -ChildPath $selectedFolderName
 New-Item -Path $projectFolderPath -ItemType "directory"
