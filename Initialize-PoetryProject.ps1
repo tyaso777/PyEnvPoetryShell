@@ -79,7 +79,7 @@ $testInitFilePath = Join-Path -Path $testsFolderPath -ChildPath "__init__.py"
 New-Item -Path $testInitFilePath -ItemType "file"
 
 # Add basic packages with Poetry
-poetry add notebook ipykernel black flake8 mypy isort --group dev
+poetry add notebook ipykernel black flake8 mypy isort pytest --group dev
 
 # Get the path of the virtual environment created by Poetry
 $poetryEnvPath = poetry env info -p
