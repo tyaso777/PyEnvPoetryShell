@@ -32,6 +32,16 @@
                 }
             }
             "isort.args" = @("--profile", "black")
+            "terminal.integrated.env.windows" = @{
+                "PYTHONPATH" = "`${workspaceFolder}"
+            }
+            "terminal.integrated.env.linux" = @{
+                "PYTHONPATH" = "`${workspaceFolder}"
+            }
+            "terminal.integrated.env.osx" = @{
+                "PYTHONPATH" = "`${workspaceFolder}"
+            }
+            "jupyter.notebookFileRoot" = "`${workspaceFolder}"
             # Add more settings as needed
         }
     }
